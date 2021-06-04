@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import './App.css';
-import { Input } from './Input';
-import { List } from './List';
+import { useState } from 'react'
+import './App.css'
+import { Input } from './Input'
+import { List } from './List'
 
 function App() {
-  const [stringsItems, setStringsItems] = useState([]);
-  const [numbersItems, setNumbersItems] = useState([]);
-  const [numbersAndStringsItems, setNumbersAndStringsItems] = useState([]);
-  const [sortByName, setSortByName] = useState(false);
+  const [stringsItems, setStringsItems] = useState([])
+  const [numbersItems, setNumbersItems] = useState([])
+  const [numbersAndStringsItems, setNumbersAndStringsItems] = useState([])
+  const [sortByName, setSortByName] = useState(false)
 
   const setItems = (value) => {
-    const letters = /^[A-Za-z]+$/;
-    const numbers = /^[0-9]+$/;
+    const letters = /^[A-Za-z]+$/
+    const numbers = /^[0-9]+$/
 
     if (value.match(letters)) {
       changeItem(value, setStringsItems)
