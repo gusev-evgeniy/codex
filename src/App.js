@@ -4,9 +4,9 @@ import { Input } from './Input';
 import { List } from './List';
 
 function App() {
-  const [stringsItems, setStringsItems] = useState({});
-  const [numbersItems, setNumbersItems] = useState({});
-  const [numbersAndStringsItems, setNumbersAndStringsItems] = useState({});
+  const [stringsItems, setStringsItems] = useState([]);
+  const [numbersItems, setNumbersItems] = useState([]);
+  const [numbersAndStringsItems, setNumbersAndStringsItems] = useState([]);
   const [sortByName, setSortByName] = useState(false);
 
   const setItems = (value) => {
@@ -14,24 +14,20 @@ function App() {
     const numbers = /^[0-9]+$/;
 
     if (value.match(letters)) {
-      changeItem(value, stringsItems, setStringsItems)
+      changeItem(value, setStringsItems)
     }
 
     else if (value.match(numbers)) {
-      changeItem(value, numbersItems, setNumbersItems)
+      changeItem(value, setNumbersItems)
     }
 
     else {
-      changeItem(value, numbersAndStringsItems, setNumbersAndStringsItems)
+      changeItem(value, setNumbersAndStringsItems)
     }
   }
 
-  function changeItem(name, items, fn) {
-    if (items[name]) {
-      fn(prev => ({ ...prev, [name]: prev[name] + 1 }))
-    } else {
-      fn(prev => ({ ...prev, [name]: 1 }))
-    }
+  function changeItem(name, fn) {
+    fn(prev => [...prev, name])
   }
 
   const handleClick = () => {
