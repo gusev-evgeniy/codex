@@ -10,7 +10,11 @@ export const List = ({ items, sortByName }) => {
   })
 
   if (sortByName) {
-    uniqueArray = uniqueArray.sort((a, b) => (a > b) ? 1 : ((b > a) ? -1 : 0))
+    if (uniqueArray[0] === +uniqueArray[0]) {
+      uniqueArray = uniqueArray.sort()
+    } else {
+      uniqueArray = uniqueArray.sort((a, b) => (a > b) ? 1 : ((b > a) ? -1 : 0))
+    }
   }
 
   return (
