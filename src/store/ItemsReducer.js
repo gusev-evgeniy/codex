@@ -7,20 +7,22 @@ const initialState = {
 }
 
 export const ItemsReducer = (state = initialState, action) => {
+  const field = action.payload?.field
+  const item = action.payload?.item
 
   switch (action.type) {
     case 'SET_ITEM':
       return {
-        ...state, [action.payload.field]: [...state[action.payload.field], { ...action.payload.item, count: 1, date: Date.now() }]
+        ...state, [field]: [...state[field], { ...item, count: 1, date: Date.now() }]
       }
     case 'UPDATE_ITEM':
       return {
         ...state,
-        [action.payload.field]: state[action.payload.field]
-          .map(item => item.value === action.payload.item.value ? { ...item, count: item.count + 1 } : item)
+        [field]: state[field]
+          .map(stateItem => stateItem.value === item.value
+            ? { ...stateItem, count: stateItem.count + 1 }
+            : stateItem)
       }
-    case 'CHANGE_STATUS':
-      return { ...state, status: action.payload }
     default:
       return state
   }
