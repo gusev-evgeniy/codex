@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const List = ({ items = [], sortByName }) => {
+export const List = ({ items = [] }) => {
 
   return (
     <div className='wrapper'>

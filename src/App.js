@@ -11,7 +11,7 @@ function App() {
   const [sortByName, setSortByName] = useState(false)
   const [sortedItems, setSortedItems] = useState(items)
   const dispatch = useDispatch()
-  console.log(items)
+
   useEffect(() => {
     let itemsClone = JSON.parse(JSON.stringify(items))
 
@@ -27,23 +27,23 @@ function App() {
 
       for (let item in itemsClone) {
         if (itemsClone[item].length > 1) {
-
           const firstItem = itemsClone[item][0].value
-          if (firstItem == +firstItem) {
-            itemsClone[item] = itemsClone[item].sort(uniSort)
-          } else { itemsClone[item] = itemsClone[item].sort(uniSort) }
 
+          if (firstItem == +firstItem) itemsClone[item] = itemsClone[item].sort((a, b) => a.value - b.value)
+          else itemsClone[item] = itemsClone[item].sort(uniSort)
         }
       }
     }
 
     else {
+
       for (let item in itemsClone) {
-        if (itemsClone[item].length > 0) {
-          itemsClone[item] = [...itemsClone[item].sort((a, b) => a.date - b.date)]
+        if (itemsClone[item].length > 1) {
+          itemsClone[item] = itemsClone[item].sort((a, b) => a.date - b.date)
         }
       }
     }
+
     setSortedItems(itemsClone)
   }, [items, sortByName])
 
@@ -54,32 +54,26 @@ function App() {
       numbersAndLettes: /^[A-zА-яЁё0-9]+$/
     }
 
-    const keyInObject = validateBy()
+    const type = validateBy()
+
     function validateBy() {
       for (let key in validation) {
-        if (value.match(validation[key])) {
-          return key
-        }
+        if (value.match(validation[key])) return key
       }
     }
 
-    if (keyInObject) {
-      changeArray(value, keyInObject)
+    if (type) {
+      changeArray(value, type)
     }
   }
 
-  function changeArray(value, keyInObject) {
-    const itemInArray = items[keyInObject].find(item => item.value === value)
-    if (!!itemInArray) {
-      dispatch(updateItem({ value }, keyInObject))
-    } else {
+  function changeArray(value, type) {
+    const itemInArray = items[type].find(item => item.value === value)
 
-      if (keyInObject === 'letters') {
-        dispatch(requestCapital(value))
-      } else {
-        dispatch(setItem({ value }, keyInObject))
-      }
-
+    if (!!itemInArray) dispatch(updateItem({ value }, type))
+    else {
+      if (type === 'letters') dispatch(requestCapital(value))
+      else dispatch(setItem({ value }, type))
     }
   }
 
