@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import { Input } from './Input'
 import { List } from './List'
-import { getItems } from './store'
-import { requestCapital, setItem, updateItem } from './store/ItemsReducer'
+import { getItems, getStatus } from './store'
+import { setItem, updateItem } from './store/ItemsReducer'
+import { requestCapital } from './store/locationReducer'
 
 function App() {
   const items = useSelector(state => getItems(state))
+  const isLoading = useSelector(state => getStatus(state))
   const [sortByName, setSortByName] = useState(false)
   const [sortedItems, setSortedItems] = useState(items)
   const dispatch = useDispatch()
@@ -85,13 +87,13 @@ function App() {
     <div className="App">
       <Input changeItems={changeItems} />
       <div className='stringsList' >
-        <List items={sortedItems.letters} sortByName={sortByName} />
+        <List items={sortedItems.letters} isLoading={isLoading} />
       </div>
       <div className='numbersList' >
-        <List items={sortedItems.numbers} sortByName={sortByName} />
+        <List items={sortedItems.numbers} />
       </div>
       <div className='numbersAndStringsList' >
-        <List items={sortedItems.numbersAndLettes} sortByName={sortByName} />
+        <List items={sortedItems.numbersAndLettes} />
       </div>
       <button className='changeOrderButton' onClick={handleClick}>Change Order</button>
     </div>

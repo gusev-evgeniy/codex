@@ -1,7 +1,6 @@
 import React from 'react'
 
-export const List = ({ items = [] }) => {
-
+export const List = ({ items = [], isLoading }) => {
   return (
     <div className='wrapper'>
       <ul>
@@ -12,6 +11,7 @@ export const List = ({ items = [] }) => {
           </li>
         })}
       </ul>
+      {isLoading && <h5>Loading...</h5>}
     </div>
   )
 }
