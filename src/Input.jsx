@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
-export const Input = ({ setItems }) => {
+export const Input = ({ changeItems }) => {
   const [value, setValue] = useState('')
 
   const onSubmit = (e) => {
     e.preventDefault()
-    setItems(value)
+    changeItems(value)
     setValue('')
   }
 
@@ -13,7 +13,6 @@ export const Input = ({ setItems }) => {
     <div className='wrapper'>
       <form onSubmit={e => onSubmit(e)}>
         <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
-        <button>Submit</button>
       </form>
     </div>
   )
